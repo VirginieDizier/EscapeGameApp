@@ -67,10 +67,9 @@ const styles = StyleSheet.create({
   },
   topBar: {
     marginTop: 10,
-
-    width: 400,
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-around"
   },
   title: {
     color: "white",

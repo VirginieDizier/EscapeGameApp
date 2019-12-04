@@ -8,16 +8,16 @@ const EscapeCard = () => {
       <View style={{ flexDirection: "row" }}>
         <Image
           source={require("../assets/Escape_Picture.jpg")}
-          style={{ flex: 1, height: 130 }}
+          style={{ flex: 1, height: 110 }}
         />
-        <View style={{ marginLeft: 10, flex: 2 }}>
+        <View style={{ marginLeft: 10, flex: 3 }}>
           <View style={styles.rightCard}>
-            <Text style={{ fontSize: 20 }}>Name of Escape Room</Text>
+            <Text style={{ fontSize: 20 }}>Best Escape Room Ever</Text>
             <Ionicons name="ios-cog" size={30} color={"green"} />
           </View>
           <View style={styles.rightCard}>
             <Ionicons name="ios-star" size={20} color={"#D9AF62"} />
-            <Text>0.44 km</Text>
+            <Text>0.47 km</Text>
           </View>
           <View style={styles.rightCard}>
             <Text>
@@ -27,6 +27,7 @@ const EscapeCard = () => {
             <Ionicons name="ios-pricetag" size={20} color={"#D9AF62"} />
           </View>
 
+          <Text>Description of escape room</Text>
           <Text>Description of escape room</Text>
         </View>
       </View>
