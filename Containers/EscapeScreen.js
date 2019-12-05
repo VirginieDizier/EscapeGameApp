@@ -1,31 +1,33 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapCard from "../Components/MapCard.js";
+import ImageLoad from "react-native-image-placeholder";
 
 const EscapeScreen = () => {
   return (
-    <View>
+    <ScrollView>
       <View style={styles.header}>
         <Ionicons name="ios-star-outline" size={30} color={"white"} />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <Image
-          source={require("../assets/Escape_Picture.jpg")}
+        <ImageLoad
           style={{ height: 180, flex: 4 }}
+          source={require("../assets/Escape_Picture.jpg")}
         />
-        <View style={{ marginLeft: 1, flex: 1 }}>
-          <Image
+
+        <View style={{ marginLeft: 1, flex: 1, height: 180 }}>
+          <ImageLoad
             source={require("../assets/Escape_Picture.jpg")}
             style={{ flex: 1, width: "100%", marginBottom: 1 }}
           />
-          <Image
+          <ImageLoad
             source={require("../assets/Escape_Picture.jpg")}
             style={{ flex: 1, width: "100%" }}
           />
         </View>
       </View>
-      <View style={{ backgroundColor: "#A69C94", height: 100, padding: 10 }}>
+      <View style={styles.bottomBar}>
         <View
           style={{
             flexDirection: "row",
@@ -34,12 +36,14 @@ const EscapeScreen = () => {
         >
           <Text style={{ fontSize: 20 }}>Name of Escape Room</Text>
           <View style={styles.ringItem}>
-            <Ionicons name="ios-cog" size={50} color={"green"} />
+            <View style={styles.boxRingItem}>
+              <Ionicons name="ios-cog" size={50} color={"green"} />
+            </View>
           </View>
         </View>
 
         <Ionicons name="ios-star" size={20} color={"#D9AF62"} />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={styles.bottomBarText}>
           <Text>
             <Ionicons name="ios-hourglass" size={20} color={"green"} />
             Réserver
@@ -68,7 +72,7 @@ const EscapeScreen = () => {
       <View>
         <MapCard />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -79,6 +83,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
     paddingRight: 20
+  },
+  bottomBar: {
+    backgroundColor: "#A69C94",
+    height: 100,
+    padding: 10
+  },
+  bottomBarText: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   ringItem: {
     marginRight: 10,
@@ -91,6 +104,12 @@ const styles = StyleSheet.create({
     width: 60,
     alignItems: "center",
     justifyContent: "center"
+  },
+  boxRingItem: {
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center"
   },
   fonctionBar: {
     flexDirection: "row",

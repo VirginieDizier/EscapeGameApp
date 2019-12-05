@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Image
 } from "react-native";
+import ImageLoad from "react-native-image-placeholder";
 
 const SplashScreen = () => {
   return (
@@ -20,7 +21,7 @@ const SplashScreen = () => {
         justifyContent: "center"
       }}
     >
-      <Image
+      <ImageLoad
         source={require("../assets/pentagon.jpg")}
         style={{ height: 100, width: 100, borderRadius: 10 }}
       />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TextInput, Image } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import {
   ScrollView,
   TouchableOpacity,
@@ -10,6 +10,7 @@ import {
 import FilterCard from "../Components/FilterCard";
 import EscapeCard from "../Components/EscapeCard";
 import { useNavigation } from "@react-navigation/core";
+import ImageLoad from "react-native-image-placeholder";
 
 const HomeScreen = () => {
   const [search, setSearch] = useState("A proximité");
@@ -19,7 +20,7 @@ const HomeScreen = () => {
     <View>
       <View style={styles.header}>
         <View style={styles.topBar}>
-          <Image
+          <ImageLoad
             source={require("../assets/pentagon.jpg")}
             style={{ height: 30, width: 30, borderRadius: 10 }}
           />

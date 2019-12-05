@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import ImageLoad from "react-native-image-placeholder";
 
 const EscapeCard = () => {
   return (
     <View style={{ margin: 10 }}>
       <View style={{ flexDirection: "row" }}>
-        <Image
+        <ImageLoad
           source={require("../assets/Escape_Picture.jpg")}
           style={{ flex: 1, height: 110 }}
         />
