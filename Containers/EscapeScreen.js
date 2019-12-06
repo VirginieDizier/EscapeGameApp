@@ -3,13 +3,35 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapCard from "../Components/MapCard.js";
 import ImageLoad from "react-native-image-placeholder";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 const EscapeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <ScrollView>
+      {/* HEADER */}
+
       <View style={styles.header}>
-        <Ionicons name="ios-star-outline" size={30} color={"white"} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+        >
+          <Ionicons name="ios-arrow-back" size={30} color={"white"} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Favorite");
+          }}
+        >
+          <Ionicons name="ios-star-outline" size={30} color={"white"} />
+        </TouchableOpacity>
       </View>
+
+      {/* PICTURES */}
+
       <View style={{ flexDirection: "row" }}>
         <ImageLoad
           style={{ height: 180, flex: 4 }}
@@ -27,6 +49,9 @@ const EscapeScreen = () => {
           />
         </View>
       </View>
+
+      {/* CAPTION */}
+
       <View style={styles.bottomBar}>
         <View
           style={{
@@ -46,29 +71,38 @@ const EscapeScreen = () => {
         <View style={styles.bottomBarText}>
           <Text>
             <Ionicons name="ios-hourglass" size={20} color={"green"} />
-            Réserver
+            Horaires
           </Text>
           <Text>0,44 km</Text>
         </View>
       </View>
+
+      {/* FONCTION BAR */}
+
       <View style={styles.fonctionBar}>
-        <View style={styles.items}>
+        <TouchableOpacity style={styles.items}>
           <Ionicons name="ios-create" size={30} color={"#736A62"} />
           <Text style={styles.item}>Ajouter un avis</Text>
-        </View>
-        <View style={styles.items}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
           <Ionicons name="ios-camera" size={30} color={"#736A62"} />
           <Text style={styles.item}>Ajouter une photo</Text>
-        </View>
-        <View style={styles.items}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
           <Ionicons name="ios-call" size={30} color={"#736A62"} />
           <Text style={styles.item}>Appeler</Text>
-        </View>
+        </TouchableOpacity>
       </View>
+
+      {/* DESCRIPTION AND ACCESS */}
+
       <View>
         <Text style={{ margin: 10 }}>Desciption of Escape Room</Text>
         <Text style={{ margin: 10 }}>Access information, etc </Text>
       </View>
+
+      {/* MAP */}
+
       <View>
         <MapCard />
       </View>
@@ -80,8 +114,10 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#A69C94",
     height: 50,
-    alignItems: "flex-end",
-    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingLeft: 20,
     paddingRight: 20
   },
   bottomBar: {
@@ -113,7 +149,7 @@ const styles = StyleSheet.create({
   },
   fonctionBar: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     margin: 10,
     borderBottomColor: "#A69C94",
     borderBottomWidth: 2

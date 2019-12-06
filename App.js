@@ -49,7 +49,7 @@ export default function App() {
           <Stack.Screen name="Splash" component={SplashScreen} />
         ) : (
           <>
-            <Stack.Screen name="Filters" component={FilterScreen} />
+            <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Home">
               {() => (
                 <Tab.Navigator
@@ -78,8 +78,8 @@ export default function App() {
                 </Tab.Navigator>
               )}
             </Stack.Screen>
-            <Stack.Screen name="Map" component={MapScreen} />
 
+            <Stack.Screen name="Filters" component={FilterScreen} />
             <Stack.Screen name="Escape Game" component={EscapeScreen} />
           </>
         )}

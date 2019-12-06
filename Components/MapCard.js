@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MapView from "react-native-maps";
-import { View, Text } from "react-native";
+import { View, ActivityIndicator, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import Constants from "expo-constants";
 
 const MapCard = () => {
+  const [location, setLocation] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const markers = [
     {
       id: 1,
@@ -14,6 +20,24 @@ const MapCard = () => {
     }
   ];
 
+  const getLocationAsync = useCallback(async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      setErrorMessage("Permission refusée");
+    } else {
+      const location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    }
+  });
+
+  useEffect(() => {
+    if (Platform.OS === "android" && !Constants.isDevice) {
+      setErrorMessage("La geoloc ne fonctionne pas");
+    } else {
+      getLocationAsync();
+    }
+  }, []);
+
   return (
     <View style={{ marginTop: 20 }}>
       <MapView
@@ -21,9 +45,10 @@ const MapCard = () => {
         initialRegion={{
           latitude: 48.8534,
           longitude: 2.3488,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
+          latitudeDelta: 0.08,
+          longitudeDelta: 0.08
         }}
+        showsUserLocation={true}
       >
         {markers.map(marker => {
           return (

@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Slider } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ScrollView, Switch } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  Switch,
+  TouchableOpacity
+} from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 const FilterScreen = () => {
-  const [radius, setRadius] = useState(5);
+  const navigation = useNavigation();
+  const [radius, setRadius] = useState(10);
   const [isForBeginner, setIsForBeginner] = useState(false);
 
   return (
@@ -13,11 +19,19 @@ const FilterScreen = () => {
 
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Ionicons name="ios-close" size={40} color={"white"} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          >
+            <Ionicons name="ios-close" size={40} color={"white"} />
+          </TouchableOpacity>
           <Text style={styles.titleHeaderLeft}>Filtres</Text>
         </View>
         <View style={styles.headerRight}>
-          <Text style={styles.titleHeaderRight}>Effacer</Text>
+          <TouchableOpacity>
+            <Text style={styles.titleHeaderRight}>Effacer</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -186,7 +200,9 @@ const FilterScreen = () => {
       {/* FOOTER */}
 
       <View style={styles.footer}>
-        <Text style={styles.titleFooter}>Filtrer les résultats</Text>
+        <TouchableOpacity>
+          <Text style={styles.titleFooter}>Filtrer les résultats</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -265,7 +281,7 @@ const styles = StyleSheet.create({
     color: "#736A62"
   },
   footer: {
-    height: 80,
+    height: 60,
     backgroundColor: "#D9AF62",
     alignItems: "center"
   },
