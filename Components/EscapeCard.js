@@ -3,17 +3,19 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ImageLoad from "react-native-image-placeholder";
 
-const EscapeCard = () => {
+const EscapeCard = props => {
+  const { item } = props;
+
   return (
     <View style={{ margin: 10 }}>
       <View style={{ flexDirection: "row" }}>
         <ImageLoad
-          source={require("../assets/Escape_Picture.jpg")}
+          source={{ uri: item.pictures }}
           style={{ flex: 1, height: 110 }}
         />
         <View style={{ marginLeft: 10, flex: 3 }}>
           <View style={styles.rightCard}>
-            <Text style={{ fontSize: 20 }}>Best Escape Room Ever</Text>
+            <Text style={{ fontSize: 20 }}>{item.title}</Text>
             <Ionicons name="ios-cog" size={30} color={"green"} />
           </View>
           <View style={styles.rightCard}>
@@ -23,13 +25,12 @@ const EscapeCard = () => {
           <View style={styles.rightCard}>
             <Text>
               <Ionicons name="ios-hourglass" size={20} color={"green"} />
-              Horaires
+              {item.name}
             </Text>
             <Ionicons name="ios-pricetag" size={20} color={"#D9AF62"} />
           </View>
 
-          <Text>Description of escape room</Text>
-          <Text>Description of escape room</Text>
+          <Text numberOfLines={2}>{item.description}</Text>
         </View>
       </View>
     </View>

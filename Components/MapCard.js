@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MapView from "react-native-maps";
-import { View, ActivityIndicator, Platform } from "react-native";
+import { View, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
@@ -10,6 +10,7 @@ const MapCard = () => {
   const [location, setLocation] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // Model of marker
   const markers = [
     {
       id: 1,
@@ -20,6 +21,7 @@ const MapCard = () => {
     }
   ];
 
+  // Ask to permission for geolocation
   const getLocationAsync = useCallback(async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
@@ -30,9 +32,10 @@ const MapCard = () => {
     }
   });
 
+  // Geolocation for Android
   useEffect(() => {
     if (Platform.OS === "android" && !Constants.isDevice) {
-      setErrorMessage("La geoloc ne fonctionne pas");
+      setErrorMessage("La geolocalisation ne fonctionne pas");
     } else {
       getLocationAsync();
     }

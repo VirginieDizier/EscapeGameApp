@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, TextInput } from "react-native";
@@ -12,8 +13,12 @@ import EscapeCard from "../Components/EscapeCard";
 import { useNavigation } from "@react-navigation/core";
 import ImageLoad from "react-native-image-placeholder";
 
-const HomeScreen = () => {
+const HomeScreen = props => {
+  const { escapeGames, setEscapeGames } = props;
+
   const [search, setSearch] = useState("A proximité");
+
+  // const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
   return (
@@ -40,13 +45,19 @@ const HomeScreen = () => {
       </View>
       <FilterCard />
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Escape Game");
-          }}
-        >
-          <EscapeCard />
-        </TouchableOpacity>
+        <FlatList
+          data={escapeGames}
+          keyExtractor={item => String(item._id)}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Escape Game", { escapeGamesId: item._id });
+              }}
+            >
+              <EscapeCard item={item} />
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
     </View>
   );

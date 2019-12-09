@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,6 +19,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [escapeGames, setEscapeGames] = useState([]);
   // const [userToken, setUserToken] = useState(null);
 
   // const setToken = async token => {
@@ -42,6 +43,20 @@ export default function App() {
     bootstrapAsync();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/");
+
+      setEscapeGames(response.data);
+      setIsLoading(false);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <NavigationNativeContainer>
       <Stack.Navigator>
@@ -49,7 +64,6 @@ export default function App() {
           <Stack.Screen name="Splash" component={SplashScreen} />
         ) : (
           <>
-            <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Home">
               {() => (
                 <Tab.Navigator
@@ -73,12 +87,20 @@ export default function App() {
                     inactiveTintColor: "#A69C94"
                   }}
                 >
-                  <Tab.Screen name="Home" component={HomeScreen} />
+                  <Tab.Screen name="Home">
+                    {() => (
+                      <HomeScreen
+                        escapeGames={escapeGames}
+                        setEscapeGames={setEscapeGames}
+                      />
+                    )}
+                  </Tab.Screen>
                   <Tab.Screen name="Favorite" component={FavoriteScreen} />
                 </Tab.Navigator>
               )}
             </Stack.Screen>
 
+            <Stack.Screen name="Map" component={MapScreen} />
             <Stack.Screen name="Filters" component={FilterScreen} />
             <Stack.Screen name="Escape Game" component={EscapeScreen} />
           </>

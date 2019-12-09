@@ -12,6 +12,12 @@ const FilterScreen = () => {
   const navigation = useNavigation();
   const [radius, setRadius] = useState(10);
   const [isForBeginner, setIsForBeginner] = useState(false);
+  const [isForAverage, setIsForAverage] = useState(false);
+  const [isForDifficult, setIsForDifficult] = useState(false);
+  const [isForSearching, setIsForSearching] = useState(false);
+  const [isForManipulation, setIsForManipulation] = useState(false);
+  const [isForReasoning, setIsForReasoning] = useState(false);
+  const [isForFilters, setIsForFilters] = useState(true);
 
   return (
     <View style={{ flex: 1 }}>
@@ -97,9 +103,9 @@ const FilterScreen = () => {
             <Text style={{ fontSize: 20 }}>Intermédiaire</Text>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForAverage}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForAverage(value);
               }}
             />
           </View>
@@ -113,9 +119,9 @@ const FilterScreen = () => {
             <Text style={{ fontSize: 20 }}>Difficile</Text>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForDifficult}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForDifficult(value);
               }}
             />
           </View>
@@ -133,9 +139,9 @@ const FilterScreen = () => {
             <Text style={{ fontSize: 20 }}>Fouille</Text>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForSearching}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForSearching(value);
               }}
             />
           </View>
@@ -149,9 +155,9 @@ const FilterScreen = () => {
             <Text style={{ fontSize: 20 }}>Manipulation</Text>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForManipulation}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForManipulation(value);
               }}
             />
           </View>
@@ -162,12 +168,12 @@ const FilterScreen = () => {
             <Ionicons name="ios-bulb" size={40} color={"#3D90B3"} />
           </View>
           <View style={styles.itemLevelRight}>
-            <Text style={{ fontSize: 20 }}>Réfléxion</Text>
+            <Text style={{ fontSize: 20 }}>Réflexion</Text>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForReasoning}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForReasoning(value);
               }}
             />
           </View>
@@ -184,9 +190,9 @@ const FilterScreen = () => {
           <View style={{ flex: 1 }}>
             <Switch
               thumbColor={"#D9AF62"}
-              value={isForBeginner}
+              value={isForFilters}
               onValueChange={value => {
-                setIsForBeginner(value);
+                setIsForFilters(value);
               }}
             />
           </View>
