@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import {
@@ -18,7 +16,6 @@ const HomeScreen = props => {
 
   const [search, setSearch] = useState("A proximité");
 
-  // const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
   return (

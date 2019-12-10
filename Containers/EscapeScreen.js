@@ -1,13 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapCard from "../Components/MapCard.js";
 import ImageLoad from "react-native-image-placeholder";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
+import Axios from "axios";
 
 const EscapeScreen = () => {
   const navigation = useNavigation();
+  const [isDescriptionDisplayed, setIsDescriptionDisplayed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [escapeRoom, setEscapeRoom] = useState({});
+
+  const obj = useRoute();
+  const params = obj.params;
+  const escapeId = params.escapeGamesId;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get("http://localhost:4000/" + escapeId);
+
+        setEscapeRoom(response.data);
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <ScrollView>
@@ -35,16 +58,16 @@ const EscapeScreen = () => {
       <View style={{ flexDirection: "row" }}>
         <ImageLoad
           style={{ height: 180, flex: 4 }}
-          source={require("../assets/Escape_Picture.jpg")}
+          source={{ uri: escapeRoom.pictures }}
         />
 
         <View style={{ marginLeft: 1, flex: 1, height: 180 }}>
           <ImageLoad
-            source={require("../assets/Escape_Picture.jpg")}
+            source={{ uri: escapeRoom.pictures }}
             style={{ flex: 1, width: "100%", marginBottom: 1 }}
           />
           <ImageLoad
-            source={require("../assets/Escape_Picture.jpg")}
+            source={{ uri: escapeRoom.pictures }}
             style={{ flex: 1, width: "100%" }}
           />
         </View>
@@ -59,7 +82,7 @@ const EscapeScreen = () => {
             justifyContent: "space-between"
           }}
         >
-          <Text style={{ fontSize: 20 }}>Name of Escape Room</Text>
+          <Text style={{ fontSize: 20 }}>{escapeRoom.title}</Text>
           <View style={styles.ringItem}>
             <View style={styles.boxRingItem}>
               <Ionicons name="ios-cog" size={50} color={"green"} />
@@ -71,7 +94,7 @@ const EscapeScreen = () => {
         <View style={styles.bottomBarText}>
           <Text>
             <Ionicons name="ios-hourglass" size={20} color={"green"} />
-            Horaires
+            {escapeRoom.name}
           </Text>
           <Text>0,44 km</Text>
         </View>
@@ -94,11 +117,18 @@ const EscapeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* DESCRIPTION AND ACCESS */}
+      {/* DESCRIPTION */}
 
       <View>
-        <Text style={{ margin: 10 }}>Desciption of Escape Room</Text>
-        <Text style={{ margin: 10 }}>Access information, etc </Text>
+        <Text
+          style={{ margin: 10 }}
+          onPress={() => {
+            setIsDescriptionDisplayed(!isDescriptionDisplayed);
+          }}
+          numberOfLines={isDescriptionDisplayed === false ? 3 : 0}
+        >
+          {escapeRoom.description}
+        </Text>
       </View>
 
       {/* MAP */}
