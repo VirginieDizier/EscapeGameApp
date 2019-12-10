@@ -216,9 +216,10 @@ const FilterScreen = () => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 60,
+    height: 100,
     backgroundColor: "#D9AF62",
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "flex-end"
   },
   headerLeft: {
     flexDirection: "row",
@@ -232,9 +233,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   headerRight: {
-    justifyContent: "center",
     alignItems: "flex-end",
-    marginRight: 10,
+    margin: 10,
     flex: 2
   },
   titleHeaderRight: {

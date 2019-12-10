@@ -68,18 +68,18 @@ const MapScreen = () => {
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Favorite");
-          }}
-        >
-          <Ionicons name="ios-add-circle-outline" size={30} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.titleHeader}>Map</Text>
-        <TouchableOpacity
-          onPress={() => {
             navigation.navigate("Home");
           }}
         >
           <Ionicons name="ios-menu" size={30} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.titleHeader}>Map</Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Favoris");
+          }}
+        >
+          <Ionicons name="ios-add-circle-outline" size={30} color="white" />
         </TouchableOpacity>
       </View>
 
@@ -114,18 +114,23 @@ const MapScreen = () => {
 
       {/* FOOTER */}
 
-      <View style={{ position: "absolute", marginTop: 100, marginLeft: 20 }}>
+      <View style={{ position: "absolute", marginTop: 150, marginLeft: 20 }}>
         <TouchableOpacity
           style={{
-            height: 60,
-            width: 60,
+            height: 50,
+            width: 50,
             borderRadius: 8,
-            shadowColor: "black",
-            shadowOffset: { height: 10 },
-            shadowOpacity: 0.5,
-            backgroundColor: "white",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            backgroundColor: "white"
+            // shadowColor: "#0D0D0D",
+            // shadowOffset: { width: 5, height: 20 },
+            // shadowOpacity: 0.5,
+            // elevation: 20,
+            // shadowRadius: 15,
+          }}
+          onPress={() => {
+            navigation.navigate("Filters");
           }}
         >
           <Ionicons name="ios-options" size={30} color={"#736A62"} />
@@ -137,17 +142,18 @@ const MapScreen = () => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 50,
+    height: 100,
     backgroundColor: "#D9AF62",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
     padding: 10
   },
   titleHeader: {
     fontSize: 20,
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginBottom: 5
   }
 });
 

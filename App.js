@@ -50,7 +50,7 @@ export default function App() {
       setEscapeGames(response.data);
       setIsLoading(false);
     } catch (e) {
-      console.error(e.message);
+      console.log(e.message);
     }
   };
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function App() {
 
   return (
     <NavigationNativeContainer>
-      <Stack.Navigator>
+      <Stack.Navigator headerMode="none">
         {isLoading ? (
           <Stack.Screen name="Splash" component={SplashScreen} />
         ) : (
@@ -73,7 +73,7 @@ export default function App() {
                         let iconName;
                         if (route.name === "Home") {
                           iconName = `ios-home`;
-                        } else if (route.name === "Favorite") {
+                        } else if (route.name === "Favoris") {
                           iconName = `ios-add-circle`;
                         }
                         return (
@@ -95,7 +95,14 @@ export default function App() {
                       />
                     )}
                   </Tab.Screen>
-                  <Tab.Screen name="Favorite" component={FavoriteScreen} />
+                  <Tab.Screen name="Favoris">
+                    {() => (
+                      <FavoriteScreen
+                        escapeGames={escapeGames}
+                        setEscapeGames={setEscapeGames}
+                      />
+                    )}
+                  </Tab.Screen>
                 </Tab.Navigator>
               )}
             </Stack.Screen>

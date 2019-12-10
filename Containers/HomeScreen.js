@@ -62,9 +62,10 @@ const HomeScreen = props => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 100,
+    height: 150,
     backgroundColor: "#D9AF62",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "flex-end"
   },
   searchBar: {
     margin: 10,

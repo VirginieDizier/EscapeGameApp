@@ -12,7 +12,11 @@ const FavoriteScreen = () => {
     <View>
       <View style={styles.header}>
         <TouchableOpacity
-          style={{ flex: 1, marginTop: 10 }}
+          style={{
+            flex: 1,
+
+            justifyContent: "flex-end"
+          }}
           onPress={() => {
             navigation.navigate("Home");
           }}
@@ -21,22 +25,23 @@ const FavoriteScreen = () => {
         </TouchableOpacity>
         <Text style={styles.titleHeader}>Favoris</Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate("Escape Game");
         }}
       >
         <EscapeCard />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    height: 50,
+    height: 100,
     backgroundColor: "#D9AF62",
     flexDirection: "row",
+    alignItems: "flex-end",
     paddingLeft: 20,
     paddingRight: 20
   },
@@ -45,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     flex: 5,
-    marginTop: 10,
+    marginBottom: 5,
     paddingLeft: 140
   }
 });

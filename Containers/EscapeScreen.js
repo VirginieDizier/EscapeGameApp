@@ -143,9 +143,9 @@ const EscapeScreen = () => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#A69C94",
-    height: 50,
+    height: 100,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
     paddingLeft: 20,
     paddingRight: 20
