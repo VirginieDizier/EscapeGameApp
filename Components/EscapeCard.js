@@ -1,114 +1,43 @@
-import React, { useState, useEffect, useCallback } from "react";
-import * as Permissions from "expo-permissions";
-import * as Location from "expo-location";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ImageLoad from "react-native-image-placeholder";
-import getDistance from "geolib/es/getDistance";
-import { convertDistance } from "geolib";
+import RatingStar from "./RatingStar.js";
+import LevelColor from "./LevelColor.js";
+import DistanceValue from "./DistanceValue.js";
 
 const EscapeCard = props => {
   const { item } = props;
-  const [location, setLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // LEVEL COLOR
-  const getLevel = level => {
-    if (level === "Pour débuter") {
-      return "green";
-    } else if (level === "Intermédiaire") {
-      return "orange";
-    } else if (level === "Difficile") {
-      return "red";
-    } else {
-      return "grey";
-    }
-  };
-
-  // STARS RATING
-  const stars = [];
-
-  for (let i = 0; i < 5; i++) {
-    if (i < item.rating) {
-      stars.push(
-        <Ionicons key={i} name="ios-star" size={20} color={"#D9AF62"} />
-      );
-    } else {
-      stars.push(
-        <Ionicons key={i} name="ios-star" size={20} color={"#A69C94"} />
-      );
-    }
-  }
-
-  const getLocationAsync = useCallback(async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== "granted") {
-      setErrorMessage("Permission refusée");
-    } else {
-      const location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      setIsLoading(false);
-    }
-  });
-
-  useEffect(() => {
-    try {
-      if (Platform.OS === "android" && !Constants.isDevice) {
-        setErrorMessage("La geolocalisation ne fonctionne pas");
-      } else {
-        getLocationAsync();
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+  const { location } = props;
 
   return (
-    <View style={{ margin: 10 }}>
+    <View style={{ margin: 5 }}>
       <View style={{ flexDirection: "row" }}>
         <ImageLoad
-          source={{ uri: item.pictures }}
-          style={{ flex: 1, height: 110 }}
+          source={{ uri: item.thumbnail }}
+          style={{ height: 105, width: 105, resizeMode: "cover" }}
         />
-        <View style={{ marginLeft: 10, flex: 3 }}>
+        <View style={{ marginLeft: 10, flex: 1 }}>
           <View style={styles.rightCard}>
-            <Text style={{ fontSize: 20 }}>{item.title}</Text>
-            <Ionicons name="ios-cog" size={30} color={getLevel(item.level)} />
+            <Text style={{ fontSize: 20 }}>{item.name}</Text>
+            <LevelColor item={item} />
           </View>
           <View style={styles.rightCard}>
-            <View style={{ flexDirection: "row" }}>{stars}</View>
-
-            {isLoading ? (
-              <Text>Get Position...</Text>
-            ) : (
-              <Text>
-                {convertDistance(
-                  getDistance(
-                    {
-                      latitude: location.coords.latitude,
-                      longitude: location.coords.longitude
-                    },
-                    {
-                      latitude: item.location.lat,
-                      longitude: item.location.lng
-                    },
-                    (accuracy = 10)
-                  ),
-                  "km"
-                )}
-                km
-              </Text>
-            )}
+            <RatingStar item={item} />
+            {/* <DistanceValue item={item} location={location} /> */}
           </View>
           <View style={styles.rightCard}>
             <Text>
               <Ionicons name="ios-hourglass" size={20} color={"green"} />
               {item.name}
             </Text>
-            <Ionicons name="ios-pricetag" size={20} color={"#D9AF62"} />
+            <View style={{ flexDirection: "row" }}>
+              <Ionicons name="ios-people" size={20} color={"green"} />
+              <Text>{item.players} </Text>
+            </View>
           </View>
 
-          <Text numberOfLines={2}>{item.description}</Text>
+          <Text numberOfLines={2}>{item.summury}</Text>
         </View>
       </View>
     </View>

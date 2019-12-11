@@ -6,8 +6,11 @@ import ImageLoad from "react-native-image-placeholder";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation, useRoute } from "@react-navigation/core";
 import Axios from "axios";
+import RatingStar from "../Components/RatingStar.js";
+import LevelColor from "../Components/LevelColor.js";
+import DistanceValue from "../Components/DistanceValue.js";
 
-const EscapeScreen = () => {
+const EscapeScreen = props => {
   const navigation = useNavigation();
   const [isDescriptionDisplayed, setIsDescriptionDisplayed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +52,7 @@ const EscapeScreen = () => {
             navigation.navigate("Favorite");
           }}
         >
-          <Ionicons name="ios-star-outline" size={30} color={"white"} />
+          <Ionicons name="ios-share-alt" size={30} color={"white"} />
         </TouchableOpacity>
       </View>
 
@@ -76,27 +79,24 @@ const EscapeScreen = () => {
       {/* CAPTION */}
 
       <View style={styles.bottomBar}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between"
-          }}
-        >
+        <View style={styles.bottomBarTitle}>
           <Text style={{ fontSize: 20 }}>{escapeRoom.title}</Text>
           <View style={styles.ringItem}>
             <View style={styles.boxRingItem}>
-              <Ionicons name="ios-cog" size={50} color={"green"} />
+              <LevelColor item={escapeRoom} style={{ fontSize: 50 }} />
             </View>
           </View>
         </View>
+        <View style={{ margin: 5 }}>
+          <RatingStar item={escapeRoom} />
+        </View>
 
-        <Ionicons name="ios-star" size={20} color={"#D9AF62"} />
         <View style={styles.bottomBarText}>
           <Text>
             <Ionicons name="ios-hourglass" size={20} color={"green"} />
             {escapeRoom.name}
           </Text>
-          <Text>0,44 km</Text>
+          <DistanceValue item={escapeRoom} />
         </View>
       </View>
 
@@ -108,8 +108,8 @@ const EscapeScreen = () => {
           <Text style={styles.item}>Ajouter un avis</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.items}>
-          <Ionicons name="ios-camera" size={30} color={"#736A62"} />
-          <Text style={styles.item}>Ajouter une photo</Text>
+          <Ionicons name="ios-star-outline" size={30} color={"#736A62"} />
+          <Text style={styles.item}>Ajouter en favoris</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.items}>
           <Ionicons name="ios-call" size={30} color={"#736A62"} />
@@ -147,13 +147,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingHorizontal: 30,
+    paddingBottom: 10
   },
   bottomBar: {
     backgroundColor: "#A69C94",
     height: 100,
     padding: 10
+  },
+  bottomBarTitle: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   bottomBarText: {
     flexDirection: "row",

@@ -43,7 +43,7 @@ export default function App() {
     bootstrapAsync();
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:4000/");
 
@@ -52,10 +52,10 @@ export default function App() {
     } catch (e) {
       console.log(e.message);
     }
-  };
+  }, [isLoading]);
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData, escapeGames]);
 
   return (
     <NavigationNativeContainer>
@@ -83,7 +83,7 @@ export default function App() {
                     };
                   }}
                   tabBarOptions={{
-                    activeTintColor: "#D9AF62",
+                    activeTintColor: "#D92929",
                     inactiveTintColor: "#A69C94"
                   }}
                 >

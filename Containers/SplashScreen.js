@@ -4,10 +4,8 @@ import {
   Text,
   View,
   ImageBackground,
-  ActivityIndicator,
-  Image
+  ActivityIndicator
 } from "react-native";
-import ImageLoad from "react-native-image-placeholder";
 
 const SplashScreen = () => {
   return (
@@ -21,12 +19,12 @@ const SplashScreen = () => {
         justifyContent: "center"
       }}
     >
-      <ImageLoad
-        source={require("../assets/pentagon.jpg")}
-        style={{ height: 100, width: 100, borderRadius: 10 }}
-      />
       <Text style={{ fontSize: 50, color: "#593A2F" }}>GameScaper</Text>
-      <ActivityIndicator size="large" color="#736A62"></ActivityIndicator>
+      <ActivityIndicator
+        style={{ margin: 20 }}
+        size="large"
+        color="#736A62"
+      ></ActivityIndicator>
     </ImageBackground>
   );
 };

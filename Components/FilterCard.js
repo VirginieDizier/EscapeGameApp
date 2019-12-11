@@ -12,7 +12,6 @@ const FilterCard = () => {
         <Ionicons name="ios-cog" size={20} color={"green"} />
         <Text>Pour débuter</Text>
       </TouchableOpacity>
-
       <TouchableOpacity style={styles.card}>
         <Ionicons name="ios-cog" size={20} color={"orange"} />
         <Text>Intermédiaire</Text>
