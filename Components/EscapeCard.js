@@ -9,33 +9,56 @@ import DistanceValue from "./DistanceValue.js";
 const EscapeCard = props => {
   const { item } = props;
   const { location } = props;
+  const { escapeCard } = props;
 
   return (
     <View style={{ margin: 5 }}>
+      {/* PICTURE */}
+
       <View style={{ flexDirection: "row" }}>
         <ImageLoad
           source={{ uri: item.thumbnail }}
           style={{ height: 105, width: 105, resizeMode: "cover" }}
         />
+
+        {/* TITLE */}
+
         <View style={{ marginLeft: 10, flex: 1 }}>
           <View style={styles.rightCard}>
             <Text style={{ fontSize: 20 }}>{item.name}</Text>
-            <LevelColor item={item} />
+
+            {/* LEVEL COLOR */}
+
+            <LevelColor item={item} size={30} />
           </View>
+
+          {/* RATING STAR */}
+
           <View style={styles.rightCard}>
             <RatingStar item={item} />
-            {/* <DistanceValue item={item} location={location} /> */}
+
+            {/* DISTANCE VALUE */}
+
+            <DistanceValue escapeCard={escapeCard} location={location} />
           </View>
+
+          {/* THEME */}
+
           <View style={styles.rightCard}>
             <Text>
               <Ionicons name="ios-hourglass" size={20} color={"green"} />
-              {item.name}
+              {item.theme}
             </Text>
+
+            {/* PLAYERS */}
+
             <View style={{ flexDirection: "row" }}>
               <Ionicons name="ios-people" size={20} color={"green"} />
               <Text>{item.players} </Text>
             </View>
           </View>
+
+          {/* SUMMURY */}
 
           <Text numberOfLines={2}>{item.summury}</Text>
         </View>

@@ -45,7 +45,9 @@ export default function App() {
 
   const fetchData = React.useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:4000/");
+      const response = await axios.get(
+        "https://game-scapper-app.herokuapp.com/"
+      );
 
       setEscapeGames(response.data);
       setIsLoading(false);
@@ -55,7 +57,8 @@ export default function App() {
   }, [isLoading]);
   useEffect(() => {
     fetchData();
-  }, [fetchData, escapeGames]);
+  }, []);
+  // [fetchData, escapeGames]
 
   return (
     <NavigationNativeContainer>
@@ -87,22 +90,18 @@ export default function App() {
                     inactiveTintColor: "#A69C94"
                   }}
                 >
-                  <Tab.Screen name="Home">
-                    {() => (
-                      <HomeScreen
-                        escapeGames={escapeGames}
-                        setEscapeGames={setEscapeGames}
-                      />
-                    )}
-                  </Tab.Screen>
-                  <Tab.Screen name="Favoris">
-                    {() => (
-                      <FavoriteScreen
-                        escapeGames={escapeGames}
-                        setEscapeGames={setEscapeGames}
-                      />
-                    )}
-                  </Tab.Screen>
+                  {isLoading === false ? (
+                    <>
+                      <Tab.Screen name="Home">
+                        {() => <HomeScreen escapeGames={escapeGames} />}
+                      </Tab.Screen>
+                      <Tab.Screen name="Favoris">
+                        {() => <FavoriteScreen escapeGames={escapeGames} />}
+                      </Tab.Screen>
+                    </>
+                  ) : (
+                    <Stack.Screen name="Splash" component={SplashScreen} />
+                  )}
                 </Tab.Navigator>
               )}
             </Stack.Screen>

@@ -45,6 +45,7 @@ const MapCard = () => {
     <View style={{ marginTop: 20 }}>
       <MapView
         style={{ height: 200, width: "100%" }}
+        scrollEnabled={false}
         initialRegion={{
           latitude: 48.8534,
           longitude: 2.3488,

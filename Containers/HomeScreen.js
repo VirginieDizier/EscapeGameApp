@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as Permissions from "expo-permissions";
 import * as Location from "expo-location";
+import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, TextInput, Platform } from "react-native";
 import {
@@ -15,7 +16,7 @@ import { useNavigation } from "@react-navigation/core";
 const HomeScreen = props => {
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { escapeGames, setEscapeGames } = props;
+  const { escapeGames } = props;
 
   const [search, setSearch] = useState("A proximité");
 
@@ -46,6 +47,8 @@ const HomeScreen = props => {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* HEADER */}
+
       <View style={styles.header}>
         <View style={styles.topBar}>
           <Ionicons name="ios-rocket" size={30} color="white" />
@@ -63,7 +66,13 @@ const HomeScreen = props => {
           <Ionicons name="ios-compass" style={styles.searchBarIcon} />
         </View>
       </View>
+
+      {/* FILTER CARD */}
+
       <FilterCard />
+
+      {/* ESCAPE CARDS */}
+
       <FlatList
         data={escapeGames}
         keyExtractor={item => String(item._id)}
@@ -73,7 +82,9 @@ const HomeScreen = props => {
               navigation.navigate("Escape Game", { escapeGamesId: item._id });
             }}
           >
-            <EscapeCard item={item} location={location} />
+            {isLoading === false ? (
+              <EscapeCard item={item} location={location} escapeCard={item} />
+            ) : null}
           </TouchableOpacity>
         )}
       />
@@ -83,7 +94,7 @@ const HomeScreen = props => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 150,
+    height: 140,
     backgroundColor: "#D9AF62",
     alignItems: "center",
     justifyContent: "flex-end",

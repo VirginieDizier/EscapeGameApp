@@ -123,11 +123,6 @@ const MapScreen = () => {
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "white"
-            // shadowColor: "#0D0D0D",
-            // shadowOffset: { width: 5, height: 20 },
-            // shadowOpacity: 0.5,
-            // elevation: 20,
-            // shadowRadius: 15,
           }}
           onPress={() => {
             navigation.navigate("Filters");
@@ -142,7 +137,7 @@ const MapScreen = () => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 100,
+    height: 80,
     backgroundColor: "#D9AF62",
     flexDirection: "row",
     alignItems: "flex-end",

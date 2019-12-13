@@ -216,7 +216,7 @@ const FilterScreen = () => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 100,
+    height: 80,
     backgroundColor: "#D9AF62",
     flexDirection: "row",
     alignItems: "flex-end"

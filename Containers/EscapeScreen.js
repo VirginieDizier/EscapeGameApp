@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  ActivityIndicator
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapCard from "../Components/MapCard.js";
 import ImageLoad from "react-native-image-placeholder";
@@ -8,11 +15,11 @@ import { useNavigation, useRoute } from "@react-navigation/core";
 import Axios from "axios";
 import RatingStar from "../Components/RatingStar.js";
 import LevelColor from "../Components/LevelColor.js";
-import DistanceValue from "../Components/DistanceValue.js";
 
 const EscapeScreen = props => {
   const navigation = useNavigation();
-  const [isDescriptionDisplayed, setIsDescriptionDisplayed] = useState(false);
+  const [isScenarioDisplayed, setIsScenarioDisplayed] = useState(false);
+  const [isExperienceDisplayed, setIsExperienceDisplayed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const [escapeRoom, setEscapeRoom] = useState({});
@@ -24,7 +31,9 @@ const EscapeScreen = props => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("http://localhost:4000/" + escapeId);
+        const response = await Axios.get(
+          "https://game-scapper-app.herokuapp.com/" + escapeId
+        );
 
         setEscapeRoom(response.data);
         setIsLoading(false);
@@ -36,114 +45,118 @@ const EscapeScreen = props => {
   }, []);
 
   return (
-    <ScrollView>
-      {/* HEADER */}
-
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <Ionicons name="ios-arrow-back" size={30} color={"white"} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Favorite");
-          }}
-        >
-          <Ionicons name="ios-share-alt" size={30} color={"white"} />
-        </TouchableOpacity>
-      </View>
-
-      {/* PICTURES */}
-
-      <View style={{ flexDirection: "row" }}>
-        <ImageLoad
-          style={{ height: 180, flex: 4 }}
-          source={{ uri: escapeRoom.pictures }}
+    <View>
+      {isLoading === true ? (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={{ paddingTop: 100 }}
         />
-
-        <View style={{ marginLeft: 1, flex: 1, height: 180 }}>
+      ) : (
+        <ScrollView>
+          {/* HEADER */}
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Ionicons name="ios-arrow-back" size={30} color={"white"} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Favorite");
+              }}
+            >
+              <Ionicons name="ios-share-alt" size={30} color={"white"} />
+            </TouchableOpacity>
+          </View>
+          {/* PICTURES */}
           <ImageLoad
-            source={{ uri: escapeRoom.pictures }}
-            style={{ flex: 1, width: "100%", marginBottom: 1 }}
+            style={{ height: 180, flex: 1 }}
+            source={{ uri: escapeRoom.thumbnail }}
           />
-          <ImageLoad
-            source={{ uri: escapeRoom.pictures }}
-            style={{ flex: 1, width: "100%" }}
-          />
-        </View>
-      </View>
+          {/* CAPTION */}
+          <View style={styles.bottomBar}>
+            <View style={styles.bottomBarTitle}>
+              <Text style={{ fontSize: 20 }}>{escapeRoom.name}</Text>
+              <View style={styles.ringItem}>
+                <View style={styles.boxRingItem}>
+                  <LevelColor item={escapeRoom} size={50} />
+                </View>
+              </View>
+            </View>
+            <View style={{ margin: 5 }}>
+              <RatingStar item={escapeRoom} />
+            </View>
 
-      {/* CAPTION */}
-
-      <View style={styles.bottomBar}>
-        <View style={styles.bottomBarTitle}>
-          <Text style={{ fontSize: 20 }}>{escapeRoom.title}</Text>
-          <View style={styles.ringItem}>
-            <View style={styles.boxRingItem}>
-              <LevelColor item={escapeRoom} style={{ fontSize: 50 }} />
+            <View style={styles.bottomBarText}>
+              <Text>
+                <Ionicons name="ios-globe" size={20} color={"green"} />
+                {escapeRoom.company}
+              </Text>
+              <Text>{escapeRoom.price}</Text>
             </View>
           </View>
-        </View>
-        <View style={{ margin: 5 }}>
-          <RatingStar item={escapeRoom} />
-        </View>
+          {/* FONCTION BAR */}
+          <View style={styles.fonctionBar}>
+            <TouchableOpacity style={styles.items}>
+              <Ionicons name="ios-create" size={30} color={"#736A62"} />
+              <Text style={styles.item}>Ajouter un avis</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.items}>
+              <Ionicons name="ios-star-outline" size={30} color={"#736A62"} />
+              <Text style={styles.item}>Ajouter en favoris</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.items}>
+              <Ionicons name="ios-call" size={30} color={"#736A62"} />
+              <Text style={styles.item}>Appeler</Text>
+            </TouchableOpacity>
+          </View>
+          {/* DESCRIPTION */}
+          <View style={{ margin: 10 }}>
+            <Text style={{ fontSize: 20, margin: 5 }}>Le scénario</Text>
+            <Text
+              onPress={() => {
+                setIsScenarioDisplayed(!isScenarioDisplayed);
+              }}
+              numberOfLines={isScenarioDisplayed === false ? 3 : 0}
+            >
+              {escapeRoom.summury}
+            </Text>
+            <Text style={{ fontSize: 20, margin: 5 }}>L'expérience</Text>
+            <Text
+              onPress={() => {
+                setIsExperienceDisplayed(!isExperienceDisplayed);
+              }}
+              numberOfLines={isExperienceDisplayed === false ? 3 : 0}
+            >
+              {escapeRoom.content}
+            </Text>
+          </View>
+          {/* MAP */}
+          <View>
+            <MapCard />
+          </View>
+          {/* ADDRESS */}
 
-        <View style={styles.bottomBarText}>
-          <Text>
-            <Ionicons name="ios-hourglass" size={20} color={"green"} />
-            {escapeRoom.name}
-          </Text>
-          <DistanceValue item={escapeRoom} />
-        </View>
-      </View>
+          {/* <Text> {escapeRoom.location[0].address} </Text> */}
 
-      {/* FONCTION BAR */}
-
-      <View style={styles.fonctionBar}>
-        <TouchableOpacity style={styles.items}>
-          <Ionicons name="ios-create" size={30} color={"#736A62"} />
-          <Text style={styles.item}>Ajouter un avis</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.items}>
-          <Ionicons name="ios-star-outline" size={30} color={"#736A62"} />
-          <Text style={styles.item}>Ajouter en favoris</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.items}>
-          <Ionicons name="ios-call" size={30} color={"#736A62"} />
-          <Text style={styles.item}>Appeler</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* DESCRIPTION */}
-
-      <View>
-        <Text
-          style={{ margin: 10 }}
-          onPress={() => {
-            setIsDescriptionDisplayed(!isDescriptionDisplayed);
-          }}
-          numberOfLines={isDescriptionDisplayed === false ? 3 : 0}
-        >
-          {escapeRoom.description}
-        </Text>
-      </View>
-
-      {/* MAP */}
-
-      <View>
-        <MapCard />
-      </View>
-    </ScrollView>
+          <FlatList
+            data={escapeRoom.location}
+            keyExtractor={item => String(item.address)}
+            renderItem={({ item }) => <Text>{item.address}</Text>}
+          />
+        </ScrollView>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "#A69C94",
-    height: 100,
+    height: 80,
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",

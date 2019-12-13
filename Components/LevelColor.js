@@ -1,13 +1,15 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-const getLevel = level => {
-  if (level === "Pour débuter") {
+const getLevel = levels => {
+  if (levels === "easy") {
     return "green";
-  } else if (level === "Intermédiaire") {
+  } else if (levels === "medium") {
     return "orange";
-  } else if (level === "Difficile") {
+  } else if (levels === "hard") {
     return "red";
+  } else if (levels === "expert") {
+    return "black";
   } else {
     return "grey";
   }
@@ -15,7 +17,11 @@ const getLevel = level => {
 
 const LevelColor = props => {
   const { item } = props;
-  return <Ionicons name="ios-cog" size={30} color={getLevel(item.level)} />;
+  const { size } = props;
+
+  return (
+    <Ionicons name="ios-cog" size={props.size} color={getLevel(item.levels)} />
+  );
 };
 
 export default LevelColor;

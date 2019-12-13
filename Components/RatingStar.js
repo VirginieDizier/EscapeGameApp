@@ -7,13 +7,13 @@ const RatingStar = props => {
   const stars = [];
 
   for (let i = 0; i < 5; i++) {
-    if (i < item.rating) {
+    if (i < item.userRating) {
       stars.push(
         <Ionicons key={i} name="ios-star" size={15} color={"#D9AF62"} />
       );
     } else {
       stars.push(
-        <Ionicons key={i} name="ios-star" size={15} color={"#A69C94"} />
+        <Ionicons key={i} name="ios-star" size={15} color={"#736A62"} />
       );
     }
   }
